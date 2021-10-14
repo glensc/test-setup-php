@@ -51,12 +51,6 @@ jobs:
         run: composer install --no-progress --prefer-dist --optimize-autoloader
       - name: Copy Env File
         run: cp .env.example .env
-      - name: Setup database user
-        run: mysql -u homestead -e 'CREATE USER 'worker'@'localhost' IDENTIFIED BY 'secret';'
-      - name: Flush privileges
-        run: mysql -u worker --password=secret -e 'FLUSH PRIVILEGES;'
-      - name: Create testing database
-        run: mysql -u worker --password=secret -e 'CREATE DATABASE IF NOT EXISTS content_information_test;'
       - run: echo ${{ job.services.redis.ports['3306'] }}  
       - name: Migrate Test Database
         run: php artisan migrate --seed --force
