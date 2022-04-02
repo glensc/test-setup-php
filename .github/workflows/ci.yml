@@ -49,6 +49,7 @@ jobs:
         run: composer install --no-progress --prefer-dist --optimize-autoloader
       - name: Copy Env File
         run: cp .env.example .env
+      - run: php artisan key:generate  
       - name: Migrate Test Database
         run: php artisan migrate --seed --force
         env:
